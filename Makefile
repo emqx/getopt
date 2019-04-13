@@ -1,24 +1,30 @@
+PROJECT = getopt
+PROJECT_DESCRIPTION = Erlang module to parse command line arguments using the GNU getopt syntax
+PROJECT_VERSION = v1.0.2
+
 APPLICATION := getopt
 
-.PHONY: all clean compile dialyzer edoc shell test
+ERLC_OPTS += +debug_info
+ERLC_OPTS += +warnings_as_errors +warn_export_all +warn_unused_import
 
-all: compile
+$(shell [ -f erlang.mk ] || curl -s -o erlang.mk https://raw.githubusercontent.com/emqx/erlmk/master/erlang.mk)
+include erlang.mk
 
-clean:
+rebar-clean:
 	@rebar3 clean
 
-compile:
+rebar-compile:
 	@rebar3 compile
 
-dialyzer: compile
+rebar-dialyzer: compile
 	@rebar3 dialyzer
 
-edoc:
+rebar-edoc:
 	@rebar3 edoc
 
-shell:
+rebar-shell:
 	@rebar3 shell
 
-test:
+rebar-test:
 	@rebar3 eunit
 
